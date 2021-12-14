@@ -27,10 +27,11 @@ def get_random_velocity(min_velocity: int, max_velocity: int) -> Vector2:
     return Vector2(velocity, 0).rotate(angle)
 
 
-def create_spaceship_picture(spaceship_width: int, spaceship_height: int) -> Surface:
+def create_spaceship_picture(spaceship_width: int, spaceship_height: int, color: Tuple[int, int, int]) -> Surface:
     """
     :param spaceship_width: Spaceship width
     :param spaceship_height: Spaceship height
+    :param color: Spaceship color
     :return: Surface with spaceship picture
     """
     spaceship = Surface((spaceship_width, spaceship_height))
@@ -41,6 +42,6 @@ def create_spaceship_picture(spaceship_width: int, spaceship_height: int) -> Sur
         (spaceship.get_width() * (3 / 4), spaceship.get_height()),
         (spaceship.get_width() / 2, 0)
     ]
-    draw.aalines(spaceship, (255, 255, 255), False, points, 3)
+    draw.aalines(spaceship, color, False, points, 3)
 
     return spaceship

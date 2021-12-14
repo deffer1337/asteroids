@@ -1,6 +1,7 @@
 import sys
 import random
 from pathlib import Path
+from typing import List
 
 import pygame
 
@@ -8,6 +9,7 @@ from modules.spaceship import Spaceship
 from modules.asteroid import Asteroid
 from modules.spacehip_health import SpaceshipHealth
 from modules.utils import create_spaceship_picture
+from modules.colors import BLACK, WHITE
 
 
 class Asteroids:
@@ -64,12 +66,12 @@ class Asteroids:
             self._process_game_logic()
             self._draw()
 
-    def _create_spaceship_health(self, spaceship_health_point):
+    def _create_spaceship_health(self, spaceship_health_point: int) -> List[SpaceshipHealth]:
         spaceship_healths = []
         indent = 32
         for i in range(spaceship_health_point):
             spaceship_healths.append(
-                SpaceshipHealth((self.screen.get_width() - indent, 32), create_spaceship_picture(32, 32)))
+                SpaceshipHealth((self.screen.get_width() - indent, 32), create_spaceship_picture(32, 32, WHITE)))
             indent += 32
 
         return spaceship_healths
@@ -180,7 +182,7 @@ class Asteroids:
         screen.blit(screen_text, position)
 
     def _draw(self):
-        self.screen.fill((0, 0, 0))
+        self.screen.fill(BLACK)
         for game_object in self._get_game_objects():
             game_object.draw(self.screen)
         for spaceship_health in self.spaceship_healths:

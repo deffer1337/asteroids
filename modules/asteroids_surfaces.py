@@ -6,19 +6,20 @@ from typing import List, Tuple
 import pygame
 
 
-def drawing_asteroid_in_surface(asteroid_width: int, asteroid_height: int, function_create_points) \
-        -> pygame.Surface:
+def drawing_asteroid_in_surface(asteroid_width: int, asteroid_height: int, color: Tuple[int, int, int],
+                                function_create_points) -> pygame.Surface:
     """
     Drawing asteroid on the surface
 
     :param asteroid_width: Asteroid width
     :param asteroid_height: Asteroid height
+    :param color: Asteroid color
     :param function_create_points: Function that takes a surface and composes the location of points in this surface
     :return: Surface with asteroid
     """
     asteroid = pygame.surface.Surface((asteroid_width, asteroid_height))
     points = function_create_points(asteroid)
-    pygame.draw.aalines(asteroid, (255, 255, 255), False, points, 3)
+    pygame.draw.aalines(asteroid, color, False, points, 3)
 
     return asteroid
 

@@ -6,6 +6,7 @@ from pygame.transform import rotozoom
 from modules.game_object import GameObject
 from modules.bullet import Bullet
 from modules.utils import create_spaceship_picture
+from modules.colors import WHITE
 
 
 class Spaceship(GameObject):
@@ -27,7 +28,7 @@ class Spaceship(GameObject):
         :param create_bullet_callback: Callback for bullet
         """
         super().__init__(position,
-                         create_spaceship_picture(spaceship_width, spaceship_height),
+                         create_spaceship_picture(spaceship_width, spaceship_height, WHITE),
                          Vector2(0))
         self.bullet_width = bullet_width
         self.bullet_height = bullet_height

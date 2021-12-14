@@ -11,8 +11,25 @@ from modules.utils import create_spaceship_picture
 
 
 class Asteroids:
-    def __init__(self, width=1600, height=1200, asteroid_width=80, asteroid_height=80, asteroid_count=4,
-                 spaceship_width=32, spaceship_height=32, spaceship_health_point=4, bullet_width=4, bullet_height=4):
+    """
+    Сlass that initializes the game and provides the start of the game cycle
+    """
+
+    def __init__(self, width: int = 1600, height: int = 1200, asteroid_width: int = 80, asteroid_height: int = 80,
+                 asteroid_count: int = 4, spaceship_width: int = 32, spaceship_height: int = 32,
+                 spaceship_health_point: int = 4, bullet_width: int = 4, bullet_height: int = 4):
+        """
+        :param width: Screen width
+        :param height: Screen height
+        :param asteroid_width: Max asteroid width
+        :param asteroid_height: Max asteroid height
+        :param asteroid_count: Initial number of asteroids
+        :param spaceship_width: Spaceship width
+        :param spaceship_height: Spaceship height
+        :param spaceship_health_point: Initial number of spaceship health
+        :param bullet_width: Bullet width
+        :param bullet_height: Bullet height
+        """
         self._init_game()
         self._score_for_asteroids = {(asteroid_width, asteroid_height): 50,
                                      (asteroid_width / 2, asteroid_height / 2): 100,
@@ -36,7 +53,12 @@ class Asteroids:
         self.font = pygame.font.Font(Path(Path(__file__).parent, 'assets', 'Hyperspace.otf'), 30)
         self._score = 0
 
-    def main_loop(self):
+    def main_loop(self) -> None:
+        """
+        Starting the game cycle
+
+        :return: None
+        """
         while True:
             self._handle_input()
             self._process_game_logic()
@@ -134,6 +156,12 @@ class Asteroids:
                                        self.asteroid_max_width,
                                        self.asteroid_max_height) for _ in range(self.asteroid_count)]
 
+    def _delete_bullets_outside_screen(self):
+        for bullet in self.bullets:
+            if bullet.position.x < 0 or bullet.position.x > self.screen.get_width() or \
+                    bullet.position.y < 0 or bullet.position.y > self.screen.get_height():
+                self.bullets.remove(bullet)
+
     def _process_game_logic(self):
         for game_object in self._get_game_objects():
             game_object.move(self.screen)
@@ -141,6 +169,7 @@ class Asteroids:
         self._asteroids_collides_with_bullet()
         self._when_all_asteroids_destroyed()
         self._asteroid_collides_with_spaceship()
+        self._delete_bullets_outside_screen()
         if not self.spaceship:
             pygame.quit()
             sys.exit()

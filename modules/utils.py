@@ -1,24 +1,38 @@
 import random
-from pathlib import Path
-from typing import Union
+from typing import Union, Tuple
 
 from pygame import Surface, Vector2, draw
-from pygame.image import load
 
 
-def wrap_position(position, surface):
+def wrap_position(position: Union[Tuple[int, int], Vector2], surface: Surface) -> Vector2:
+    """
+    :param position: Current game object position
+    :param surface: Surface on which the game object lies in position
+    :return: Position that does not go beyond surface
+    """
     x, y = position
     w, h = surface.get_size()
     return Vector2(x % w, y % h)
 
 
-def get_random_velocity(min_speed, max_speed):
-    speed = random.randint(min_speed, max_speed)
+def get_random_velocity(min_velocity: int, max_velocity: int) -> Vector2:
+    """
+    Get random velocity in the direction
+    :param min_velocity: Min velocity
+    :param max_velocity: Max velocity
+    :return: Velocity
+    """
+    velocity = random.randint(min_velocity, max_velocity)
     angle = random.randrange(0, 360)
-    return Vector2(speed, 0).rotate(angle)
+    return Vector2(velocity, 0).rotate(angle)
 
 
-def create_spaceship_picture(spaceship_width, spaceship_height):
+def create_spaceship_picture(spaceship_width: int, spaceship_height: int) -> Surface:
+    """
+    :param spaceship_width: Spaceship width
+    :param spaceship_height: Spaceship height
+    :return: Surface with spaceship picture
+    """
     spaceship = Surface((spaceship_width, spaceship_height))
     points = [
         (spaceship.get_width() / 2, 0),

@@ -13,7 +13,7 @@ class Bullet(GameObject):
         bullet = Surface((bullet_width, bullet_height))
         gfxdraw.rectangle(bullet, (0, 0, bullet.get_width(), bullet.get_height()), (255, 255, 255))
         bullet.fill(WHITE)
-        super().__init__(position, bullet, velocity)
+        super().__init__(position, bullet, velocity, velocity.x, velocity.y)
 
     def move(self, surface: Surface) -> None:
         """

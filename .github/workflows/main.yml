@@ -25,7 +25,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Test with pytest
         run: |
-          SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy python3.8 -m pytest
+          SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy pytest
       - name: Check coverage
         run: |
           pytest --cov=modules
